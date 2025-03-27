@@ -1,3 +1,4 @@
+package code;
 import aed3.*;
 
 public class ArquivoCliente extends aed3.Arquivo<Cliente> {
