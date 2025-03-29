@@ -9,3 +9,5 @@ O QUE DEVE SER FEITO?
  - Criar a visão e o controle de episódios. O usuário deve escolher previamente a série específica cujos episódios vai controlar.
  - Na visão das séries, permitir a visão dos episódios por temporada.
 Observe que para tudo funcionar, você precisará acessar os arquivos e as visões de episódios e de séries em todas as classes de controle.
+
+

@@ -1,5 +1,7 @@
-package code;
+
 import java.util.Scanner;
+
+import code.MenuClientes;
 
 
 public class Principal {
@@ -9,7 +11,7 @@ public static void main(String[] args) {
     Scanner console;
 
     try {
-        console = new Scanner(System.in);
+        console = new Scanner (System.in);
         int opcao;
         do {
 
