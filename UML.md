@@ -4,10 +4,9 @@
 | - nome: String  |
 |-----------------|
 | + getSeries()   |
-|-----------------|
-       |
-       | 1
-       v N
+       I
+       I 1
+       V N
 |     Serie      |
 |-----------------|
 | - id: int       |
@@ -15,9 +14,9 @@
 | - idStreaming: int |
 |-----------------|
 | + getTemporadas() |
-       |
-       | 1
-       v N
+       I
+       I 1
+       V N
 |   Temporada    |
 |-----------------|
 | - id: int       |
@@ -25,16 +24,15 @@
 | - idSerie: int  |
 |-----------------|
 | + getEpisodios() |
-       |
-       | 1
-       v N
+       I
+       I 1
+       V N
 |   Episodio     |
 |-----------------|
 | - id: int       |
 | - titulo: String |
 | - idTemporada: int |
 | - idSerie: int |
-|-----------------|
 
 <hr style="width: 100%; border: 1px solid white; background-color: white; margin: 20px 0;">
 
@@ -46,7 +44,6 @@
 | + excluir(int id)                |
 | + buscar(int id): Serie          |
 | + listar(): List<Serie>          |
-|-----------------------------------|
 
 |       ArquivoEpisodio             |
 |-----------------------------------|
@@ -56,7 +53,6 @@
 | + excluir(int id)                |
 | + buscar(int id): Episodio        |
 | + listar(): List<Episodio>        |
-|-----------------------------------|
 
 |       ArvoreBMais                 |
 |-----------------------------------|
@@ -65,4 +61,3 @@
 | + inserir(idSerie, idEpisodio)    |
 | + buscar(idSerie): List<int>      |
 | + remover(idSerie, idEpisodio)    |
-|-----------------------------------|
