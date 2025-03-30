@@ -3,7 +3,7 @@
 | - id: int       |
 | - nome: String  |
 |-----------------|
-| | getSeries()   |
+| + getSeries()   |
 |-----------------|
        |
        | 1
@@ -14,8 +14,7 @@
 | - nome: String  |
 | - idStreaming: int |
 |-----------------|
-| | getTemporadas() |
-|-----------------|
+| + getTemporadas() |
        |
        | 1
        v N
@@ -25,8 +24,7 @@
 | - numero: int   |
 | - idSerie: int  |
 |-----------------|
-| | getEpisodios() |
-|-----------------|
+| + getEpisodios() |
        |
        | 1
        v N
@@ -44,27 +42,27 @@
 |-----------------------------------|
 | - listaSeries: List<Serie>        |
 |-----------------------------------|
-| | incluir(Serie s)               |
-| | excluir(int id)                |
-| | buscar(int id): Serie          |
-| | listar(): List<Serie>          |
+| + incluir(Serie s)               |
+| + excluir(int id)                |
+| + buscar(int id): Serie          |
+| + listar(): List<Serie>          |
 |-----------------------------------|
 
 |       ArquivoEpisodio             |
 |-----------------------------------|
 | - listaEpisodios: List<Episodio>  |
 |-----------------------------------|
-| | incluir(Episodio e)            |
-| | excluir(int id)                |
-| | buscar(int id): Episodio        |
-| | listar(): List<Episodio>        |
+| + incluir(Episodio e)            |
+| + excluir(int id)                |
+| + buscar(int id): Episodio        |
+| + listar(): List<Episodio>        |
 |-----------------------------------|
 
 |       ArvoreBMais                 |
 |-----------------------------------|
 | - indice: Map<int, List<int>>     |
 |-----------------------------------|
-| | inserir(idSerie, idEpisodio)    |
-| | buscar(idSerie): List<int>      |
-| | remover(idSerie, idEpisodio)    |
+| + inserir(idSerie, idEpisodio)    |
+| + buscar(idSerie): List<int>      |
+| + remover(idSerie, idEpisodio)    |
 |-----------------------------------|
