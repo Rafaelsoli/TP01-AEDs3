@@ -21,19 +21,19 @@ O sistema deve gerenciar um serviço de streaming, organizando séries e seus ep
 ```
 ### **Série**
 ```
-+----------------+
-| Série         |
-+----------------+
-| - id: int      |
-| - nome: String |
++-------------------------+
+| Série                   |
++-------------------------+
+| - id: int               |
+| - nome: String          |
 | - lancamento: localDate |
-| - idStreaming: int |
-+----------------+
-| + cadastrar()  |
-| + buscar()     |
-| + atualizar()  |
-| + excluir()    |
-+----------------+
+| - idStreaming: int      |
++-------------------------+
+| + cadastrar()           |
+| + buscar()              |
+| + atualizar()           |
+| + excluir()             |
++-------------------------+
 ```
 ### **Temporada**
 ```
@@ -52,19 +52,19 @@ O sistema deve gerenciar um serviço de streaming, organizando séries e seus ep
 ```
 ### **Episódio**
 ```
-+----------------+
-| Episódio       |
-+----------------+
-| - id: int      |
-| - titulo: String |
-| - numero: int  |
++--------------------+
+| Episódio           |
++--------------------+
+| - id: int          |
+| - titulo: String   |
+| - numero: int      |
 | - idTemporada: int |
-+----------------+
-| + cadastrar()  |
-| + buscar()     |
-| + atualizar()  |
-| + excluir()    |
-+----------------+
++--------------------+
+| + cadastrar()      |
+| + buscar()         |
+| + atualizar()      |
+| + excluir()        |
++--------------------+
 ```
 ## Relacionamentos
 ```

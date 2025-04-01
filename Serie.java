@@ -8,13 +8,14 @@ import java.io.DataOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
-public class Cliente implements Registro {
+public class Serie implements Registro {
 
     public int id;
     public String nome;
+    public LocalDate lancamento;
+    public idStreaming
     public String cpf;
     public float salario;
-    public LocalDate nascimento;
     public int idCategoria;
 
     public Cliente() {
