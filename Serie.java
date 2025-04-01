@@ -10,27 +10,23 @@ import java.io.DataInputStream;
 
 public class Serie implements Registro {
 
-    public int id;
+    private int id;
     public String nome;
     public LocalDate lancamento;
-    public idStreaming
-    public String cpf;
-    public float salario;
-    public int idCategoria;
+    public int idStreaming;
 
-    public Cliente() {
-        this(-1, "", "", 0F, LocalDate.now());
+    public Serie() {
+        this(-1, "", LocalDate.now(), -1);
     }
-    public Cliente(String n, String c, float s, LocalDate d) {
-        this(-1, n, c, s, d);
+    public Serie(String nome, LocalDate lancamento, int idStreaming) {
+        this(-1, nome, lancamento, idStreaming);
     }
 
-    public Cliente(int i, String n, String c, float s, LocalDate d) {
-        this.id = i;
-        this.nome = n;
-        this.cpf = c;
-        this.salario = s;
-        this.nascimento = d;
+    public Serie(int id, String nome, LocalDate lancamento, int idStreaming) {
+        this.id = id;
+        this.nome = nome;
+        this.lancamento = lancamento;
+        this.idStreaming = idStreaming;
     }
 
     public void setId(int id) {
@@ -41,16 +37,15 @@ public class Serie implements Registro {
         return id;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getNome() {
+        return nome;
     }
 
     public String toString() {
-        return "\nID........: " + this.id +
-               "\nNome......: " + this.nome +
-               "\nCPF.......: " + this.cpf +
-               "\nSalário...: " + this.salario +
-               "\nNascimento: " + this.nascimento;
+        return "\nID...........: " + this.id         +
+               "\nNome.........: " + this.nome       +
+               "\nLancamento...: " + this.lancamento +
+               "\nIdStreaming..: " + this.idStreaming;
     }
 
     public byte[] toByteArray() throws IOException {
@@ -58,9 +53,8 @@ public class Serie implements Registro {
         DataOutputStream dos = new DataOutputStream(baos);
         dos.writeInt(this.id);
         dos.writeUTF(this.nome);
-        dos.write(this.cpf.getBytes());
-        dos.writeFloat(this.salario);
-        dos.writeInt((int) this.nascimento.toEpochDay());
+        dos.writeInt((int) this.lancamento.toEpochDay());
+        dos.writeInt(this.idStreaming);
         return baos.toByteArray();
     }
 
@@ -69,12 +63,9 @@ public class Serie implements Registro {
         ByteArrayInputStream bais = new ByteArrayInputStream(b);
         DataInputStream dis = new DataInputStream(bais);
 
-        byte[] cpf = new byte[11];
         this.id = dis.readInt();
         this.nome = dis.readUTF();
-        dis.read(cpf);
-        this.cpf = new String(cpf);
-        this.salario = dis.readFloat();
-        this.nascimento = LocalDate.ofEpochDay(dis.readInt());
+        this.lancamento = LocalDate.ofEpochDay(dis.readInt());
+        this.idStreaming = dis.readInt();
     }
 }
