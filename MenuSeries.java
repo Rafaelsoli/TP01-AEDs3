@@ -1,17 +1,20 @@
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import                java.time.LocalDate;
+import                  java.util.Scanner;
 
-public class MenuClientes {
+public class MenuSeries
+{
     
-    ArquivoCliente arqClientes;
-    private static Scanner console = new Scanner(System.in);
+    private static Scanner console = new Scanner (System.in);
+    ArquivoSeries arqSeries;
 
-    public MenuClientes() throws Exception {
-        arqClientes = new ArquivoCliente();
+    public MenuSeries () throws Exception 
+    {
+        arqSeries = new ArquivoSerie ();
     }
 
-    public void menu() {
+    public void menu () 
+    {
 
         int opcao;
         do {

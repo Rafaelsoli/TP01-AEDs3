@@ -1,12 +1,13 @@
 import aed3.*;
 
-public class ArquivoCliente extends aed3.Arquivo<Cliente> {
+public class ArquivoSerie extends aed3.Arquivo <Serie> 
+{
 
-    Arquivo<Cliente> arqClientes;
-    HashExtensivel<ParCPFID> indiceIndiretoCPF;
+    HashExtensivel<ParNomeID> indiceIndiretoNome;
+    Arquivo<Serie> arqClientes;
 
-    public ArquivoCliente() throws Exception {
-        super("clientes", Cliente.class.getConstructor());
+    public ArquivoSerie() throws Exception {
+        super("series", Cliente.class.getConstructor());
         indiceIndiretoCPF = new HashExtensivel<>(
             ParCPFID.class.getConstructor(), 
             4, 

@@ -2,11 +2,11 @@ import java.time.LocalDate;
 
 import aed3.Registro;
 
-import java.io.IOException;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
+import  java.io.ByteArrayInputStream;
+import      java.io.DataOutputStream;
+import       java.io.DataInputStream;
+import           java.io.IOException;
 
 public class Serie implements Registro {
 
