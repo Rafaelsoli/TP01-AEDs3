@@ -1,3 +1,4 @@
+package codigoDeExemplo;
 import java.util.Scanner;
 
 

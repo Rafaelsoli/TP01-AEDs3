@@ -1,3 +1,4 @@
+package codigoDeExemplo;
 import java.time.LocalDate;
 
 import aed3.Registro;

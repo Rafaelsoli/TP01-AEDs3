@@ -5,6 +5,8 @@ O sistema deve gerenciar um serviço de streaming, organizando séries e seus ep
 
 ## Diagrama de Classes
 
+<!--
+
 ### **Streaming**
 ```
 +----------------+
@@ -19,6 +21,9 @@ O sistema deve gerenciar um serviço de streaming, organizando séries e seus ep
 | + excluir()    |
 +----------------+
 ```
+
+-->
+
 ### **Série**
 ```
 +-------------------------+
@@ -61,25 +66,26 @@ O sistema deve gerenciar um serviço de streaming, organizando séries e seus ep
 
 ### **Episódio**
 ```
-+--------------------+
-| Episódio           |
-+--------------------+
-| - id: int          |
-| - titulo: String   |
-| - numero: int      |
-| - idTemporada: int |
-+--------------------+
-| + cadastrar()      |
-| + buscar()         |
-| + atualizar()      |
-| + excluir()        |
-+--------------------+  
++-------------------------+
+| Episódio                |
++-------------------------+
+| - id: int               |
+| - nome: String          |
+| - temporada: u.short    |
+| - numero: u.int         |
+| - lancamento: localDate |
+| - duracao: u.short      |
+| - idSerie: int          |
++-------------------------+
+| + cadastrar()           |
+| + buscar()              |
+| + atualizar()           |
+| + excluir()             |
++-------------------------+  
 ```
 ## Relacionamentos
 ```
-Streaming 1 ----- N Série
-Série 1 --------- N Temporada
-Temporada 1 ----- N Episódio
+Serie 1 ----- N Episódio
 ```
 
 ## Regras de Negócio
