@@ -27,13 +27,18 @@ O sistema deve gerenciar um serviço de streaming, organizando séries e seus ep
 | - id: int               |
 | - nome: String          |
 | - lancamento: localDate |
-| - idStreaming: int      |
+| - Sinopse: String       |
+| - ageRating: enumIDADE  |
+| - Streaming: String     |
 +-------------------------+
 | + cadastrar()           |
 | + buscar()              |
 | + atualizar()           |
 | + excluir()             |
 +-------------------------+
+
+<!--
+
 ```
 ### **Temporada**
 ```
@@ -50,6 +55,9 @@ O sistema deve gerenciar um serviço de streaming, organizando séries e seus ep
 | + excluir()    |
 +----------------+
 ```
+
+-->
+
 ### **Episódio**
 ```
 +--------------------+
@@ -64,7 +72,7 @@ O sistema deve gerenciar um serviço de streaming, organizando séries e seus ep
 | + buscar()         |
 | + atualizar()      |
 | + excluir()        |
-+--------------------+
++--------------------+  
 ```
 ## Relacionamentos
 ```
