@@ -37,9 +37,10 @@ O sistema deve gerenciar um serviço de streaming, organizando séries e seus ep
 | + excluir()             |
 +-------------------------+
 
+```
+
 <!--
 
-```
 ### **Temporada**
 ```
 +----------------+
