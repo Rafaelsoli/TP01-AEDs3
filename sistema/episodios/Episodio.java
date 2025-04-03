@@ -107,7 +107,10 @@ public class Episodio implements Registro
     // TO STRING
     public String toString ()
     {
-        return "";
+        return "| > \""         + nome   + "\""   +                        "\n" +
+               "| Episódio "    + numero + " da " + temporada +  " temporada\n" +
+               "| "             + sinopse         +                        "\n" +
+               "| Lançado em: "                   + lancamento.toString ()      + " - ID: "     + id + "@" + idSerie;
     }
 }
 
