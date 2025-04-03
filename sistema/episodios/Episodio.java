@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Pacote
 
-package sistema.series;
+package sistema.episodios;
 
 //////////////////////////////////////////////////
 // Bibliotecas
@@ -10,74 +10,86 @@ import java.time.LocalDate; // Para o <lancamento>
 import       aed3.Registro; // Para o modelo de entidade <registro>
 
 //////////////////////////////////////////////////
-// Implementação da série em si
+// Implementação dos episódios em si
 
-public class Serie implements Registro 
+public class Episodio implements Registro 
 {
     // VARIÁVEIS
     private int                id;
     private String           nome;
+    private int            numero;
+    private short         duracao; // Em minutos
+    private int           idSerie;
     private String        sinopse;
-    private short       ageRating; // Classificação indicativa
-    private String      streaming;
-    private LocalDate  lancamento;
+    private short       temporada; 
+    private LocalDate  lancamento;  
 
     // CONSTRUTORES
-    public Serie 
+    public Episodio 
     (
         int               id,
         String          nome,
+        int           numero,
+        short        duracao,
+        int          idSerie,
         String       sinopse,
-        short      ageRating,
-        String     streaming,
+        short      temporada,
         LocalDate lancamento
     )
     {
         this.id         =         id;
         this.nome       =       nome;
+        this.numero     =     numero;
+        this.duracao    =    duracao;
+        this.idSerie    =    idSerie;
         this.sinopse    =    sinopse;
-        this.ageRating  =  ageRating;
-        this.streaming  =  streaming;
+        this.temporada  =  temporada;
         this.lancamento = lancamento;
     }
 
-    public Serie 
+    public Episodio
     (
         String          nome,
+        int           numero,
+        short        duracao,
+        int          idSerie,
         String       sinopse,
-        short      ageRating,
-        String     streaming,
+        short      temporada,
         LocalDate lancamento
     )
     {
         this 
         (
-            -1, nome, sinopse, ageRating, streaming, lancamento
+            -1, nome, numero, duracao, idSerie, sinopse, temporada, lancamento
         );
     }
 
-    public Serie ()
+    public Episodio ()
     {
         this 
         (
-            "", "", (short) 0, "", LocalDate.now ()
+            "", -1, (short) 0, -1, "", (short) -1, LocalDate.now ()
         );
     }
 
     // GETTERS
     public int       getId         () {return         id;}
     public String    getNome       () {return       nome;}
+    public int       getNumero     () {return     numero;}
+    public short     getDuracao    () {return    duracao;}
+    public int       getIdSerie    () {return    idSerie;}
     public String    getSinopse    () {return    sinopse;}
-    public short     getAgeRating  () {return  ageRating;}
-    public String    getStreaming  () {return  streaming;}
+    public short     getTemporada  () {return  temporada;}
     public LocalDate getLancamento () {return lancamento;}
 
     // SETTERS
     public void setId         (int               id) {this.id         =         id;}
     public void setNome       (String          nome) {this.nome       =       nome;}
+    public void setNumero     (int           numero) {this.numero     =     numero;}
+    public void setDuracao    (short        duracao) {this.duracao    =    duracao;}
+    public void setIdSerie    (int          idSerie) {this.idSerie    =    idSerie;}
     public void setSinopse    (String       sinopse) {this.sinopse    =    sinopse;}
-    public void setAgeRating  (short      ageRating) {this.ageRating  =  ageRating;}
-    public void setStreaming  (String     streaming) {this.streaming  =  streaming;}
+    public void setTemporada  (short      temporada) {this.temporada  =  temporada;}
     public void setLancamento (LocalDate lancamento) {this.lancamento = lancamento;}
 
     // TO BYTE ARRAY
