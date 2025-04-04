@@ -3,11 +3,19 @@
 
 package sistema.episodios;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 //////////////////////////////////////////////////
 // Bibliotecas
 
 import java.time.LocalDate; // Para o <lancamento>
 import       aed3.Registro; // Para o modelo de entidade <registro>
+
+import    sistema.Auxiliar; // Para LerString & FormatarString
 
 //////////////////////////////////////////////////
 // Implementação dos episódios em si
@@ -23,6 +31,9 @@ public class Episodio implements Registro
     private String        sinopse;
     private short       temporada; 
     private LocalDate  lancamento;  
+
+    private static final int TAM_NOME      = 128;
+    private static final int TAM_SINOPSE   = 200;
 
     // CONSTRUTORES
     public Episodio 
@@ -64,6 +75,14 @@ public class Episodio implements Registro
         );
     }
 
+    public Episodio (byte [] ba) throws IOException
+    {
+        this ();
+
+        fromByteArray (ba);
+    }
+
+
     public Episodio ()
     {
         this 
@@ -93,24 +112,46 @@ public class Episodio implements Registro
     public void setLancamento (LocalDate lancamento) {this.lancamento = lancamento;}
 
     // TO BYTE ARRAY
-    public byte [] toByteArray ()
+    @Override public byte [] toByteArray () throws IOException 
     {
-        return new byte [0];
+        ByteArrayOutputStream baos = new ByteArrayOutputStream (    );
+        DataOutputStream      dos  = new DataOutputStream      (baos);
+
+        dos.writeInt   (id);
+        dos.writeBytes (Auxiliar.formatarString(nome, TAM_NOME));
+        dos.writeInt   (numero);
+        dos.writeShort (duracao);
+        dos.writeInt   (idSerie);
+        dos.writeBytes (Auxiliar.formatarString(sinopse, TAM_SINOPSE));
+        dos.writeShort (temporada);
+        dos.writeLong  (this.lancamento.toEpochDay ( ));
+
+        return baos.toByteArray();
     }
 
     // FROM BYTE ARRAY
-    public void fromByteArray (byte [] b)
+    @Override public void fromByteArray (byte [] b) throws IOException
     {
+        ByteArrayInputStream bais = new ByteArrayInputStream (b   );
+        DataInputStream      dis  = new DataInputStream      (bais);
 
+        id         = dis.readInt          (                );
+        nome       = Auxiliar.lerString   (dis,    TAM_NOME);
+        numero     = dis.readInt          (                );
+        duracao    = dis.readShort        (                );
+        idSerie    = dis.readInt          (                );
+        sinopse    = Auxiliar.lerString   (dis, TAM_SINOPSE);
+        temporada  = dis.readShort        (                );
+        lancamento = LocalDate.ofEpochDay (dis.readLong ( ));
     }
 
     // TO STRING
-    public String toString ()
+    @Override public String toString ()
     {
-        return "| > \""         + nome   + "\""   +                        "\n" +
-               "| Episódio "    + numero + " da " + temporada +  " temporada\n" +
-               "| "             + sinopse         +                        "\n" +
-               "| Lançado em: "                   + lancamento.toString ()      + " - ID: "     + id + "@" + idSerie;
+        return "| > \""         + nome   + "\" Duração: "  + duracao/60 + ":" + ((duracao%60 < 10)?"0":"") + duracao%60 + "\n" +
+               "| Episódio "    + numero + " da " + temporada  +   " temporada\n" +
+               "| "             + sinopse         +                                 "\n" +
+               "| Lançado em: "                   + lancamento.toString ()        + " - ID: "     + id + "@" + idSerie;
     }
 }
 

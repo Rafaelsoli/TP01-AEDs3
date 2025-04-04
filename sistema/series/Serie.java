@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.time.LocalDate; // Para o <lancamento>
 import       aed3.Registro; // Para o modelo de entidade <registro>
 
+import    sistema.Auxiliar; // Para LerString & FormatarString
+
 //////////////////////////////////////////////////
 // Implementação da série em si
 
@@ -98,6 +100,14 @@ public class Serie implements Registro
         );
     }
 
+    public Serie (byte [] ba) throws IOException
+    {
+        this ();
+
+        fromByteArray (ba);
+    }
+
+
     public Serie ()
     {
         this 
@@ -109,19 +119,19 @@ public class Serie implements Registro
     // GETTERS
     public String getClassificacaoIndicativa () 
     {
-        final String PRETO    = "\u001B[00m\u001B[37m";  // Fundo Preto e texto Branco
-        final String RESET    = "\u001B[00m";
-        final String VERMELHO = "\u001B[41m\u001B[37m";  // Fundo Vermelho e texto Branco
-        final String LARANJA  = "\u001B[43m\u001B[37m";  // Fundo Laranja e texto Branco
+        final String RESET    =            "\u001B[00m";
+        final String PRETO    =  "\u001B[00m\u001B[37m";  // Fundo Preto e texto Branco
+        final String VERMELHO =  "\u001B[41m\u001B[37m";  // Fundo Vermelho e texto Branco
+        final String LARANJA  =  "\u001B[43m\u001B[37m";  // Fundo Laranja e texto Branco
+        final String VERDE    =  "\u001B[42m\u001B[37m";  // Fundo Verde e texto Branco
+        final String AZUL     =  "\u001B[44m\u001B[37m";  // Fundo Azul e texto Branco
         final String AMARELO  = "\u001B[103m\u001B[30m"; // Fundo Amarelo e texto Branco
-        final String VERDE    = "\u001B[42m\u001B[37m";  // Fundo Verde e texto Branco
-        final String AZUL     = "\u001B[44m\u001B[37m";  // Fundo Azul e texto Branco
         
         return (ageRating >= 18)? PRETO    + "[+18]" + RESET :
-               (ageRating >= 16)? VERMELHO + "[ 16]" + RESET :
-               (ageRating >= 14)? LARANJA  + "[ 14]" + RESET :
-               (ageRating >= 12)? AMARELO  + "[ 12]" + RESET :
-               (ageRating >= 10)? AZUL     + "[ 10]" + RESET :
+               (ageRating >= 16)? VERMELHO + "[+16]" + RESET :
+               (ageRating >= 14)? LARANJA  + "[+14]" + RESET :
+               (ageRating >= 12)? AMARELO  + "[+12]" + RESET :
+               (ageRating >= 10)? AZUL     + "[+10]" + RESET :
                                   VERDE    + "[ L ]" + RESET ;
     }
     
@@ -141,50 +151,38 @@ public class Serie implements Registro
     public void setLancamento (LocalDate lancamento) {this.lancamento = lancamento;}
 
     // TO BYTE ARRAY
-    public byte [] toByteArray () throws IOException 
+    @Override public byte [] toByteArray () throws IOException 
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream (    );
         DataOutputStream      dos  = new DataOutputStream      (baos);
 
-        dos.writeInt   (                this.id                       );
-        dos.writeBytes (formatarString (this.nome,           TAM_NOME));
-        dos.writeBytes (formatarString (this.sinopse  ,   TAM_SINOPSE));
-        dos.writeShort (                this.ageRating                );
-        dos.writeBytes (formatarString (this.streaming, TAM_STREAMING));
-        dos.writeLong  (                this.lancamento.toEpochDay ( ));
+        dos.writeInt   (                         this.id                       );
+        dos.writeBytes (Auxiliar.formatarString (this.nome,           TAM_NOME));
+        dos.writeBytes (Auxiliar.formatarString (this.sinopse  ,   TAM_SINOPSE));
+        dos.writeShort (                         this.ageRating                );
+        dos.writeBytes (Auxiliar.formatarString (this.streaming, TAM_STREAMING));
+        dos.writeLong  (                         this.lancamento.toEpochDay ( ));
 
         return baos.toByteArray();
     }
 
-    // AUXILIARES
-    private String formatarString (String str, int tamanho) 
-    {
-        return String.format ("%-" + tamanho + "s", str).substring (0, tamanho);
-    }
-
-    private String lerString (DataInputStream dis, int tamanho) throws IOException 
-    {
-        byte []            bytes = new byte [tamanho];
-        dis.read          (bytes);
-        return new String (bytes).trim ();
-    }
-
     // FROM BYTE ARRAY
-    public void fromByteArray (byte [] b) throws IOException 
+    @Override public void fromByteArray (byte [] b) throws IOException 
     {
         ByteArrayInputStream bais = new ByteArrayInputStream (b   );
         DataInputStream      dis  = new DataInputStream      (bais);
 
         this.id         = dis.readInt          (                  );
-        this.nome       = lerString            (dis,      TAM_NOME);
-        this.sinopse    = lerString            (dis,   TAM_SINOPSE);
+        this.nome       = Auxiliar.lerString   (dis,      TAM_NOME);
+        this.sinopse    = Auxiliar.lerString   (dis,   TAM_SINOPSE);
         this.ageRating  = dis.readShort        (                  );
-        this.streaming  = lerString            (dis, TAM_STREAMING);
+        this.streaming  = Auxiliar.lerString   (dis, TAM_STREAMING);
         this.lancamento = LocalDate.ofEpochDay (dis.readLong (   ));
     }
 
+
     // TO STRING
-    public String toString ()
+    @Override public String toString ()
     {
         return "| > \""         + nome                   + "\" " + getClassificacaoIndicativa ()       + "\n" +
                "| "             + sinopse                                                              + "\n" +

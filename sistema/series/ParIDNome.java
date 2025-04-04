@@ -3,16 +3,14 @@
 
 package sistema.series;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException; // Para falar que input não está correto
-
 //////////////////////////////////////////////////
 // Bibliotecas
 
-// > Nenhuma necessária de documentar
+import java.io.ByteArrayOutputStream; // Para fazer o BAOS
+import  java.io.ByteArrayInputStream;
+import      java.io.DataOutputStream; // Para fazer o DOS
+import       java.io.DataInputStream;
+import           java.io.IOException; // Para falar que input não está correto
 
 //////////////////////////////////////////////////
 // Implementação do par em si
@@ -40,16 +38,23 @@ public class ParIDNome implements aed3.RegistroHashExtensivel <ParIDNome>
         this (-1, nome);
     }
 
+    public ParIDNome (byte [] ba) throws IOException
+    {
+        this ();
+
+        fromByteArray (ba);
+    }
+
     public ParIDNome ()
     {
         this ("");
     }
 
     // GETTERS
-    public short  size       () {return TAMANHO        ;}
-    public int    getId      () {return      id        ;}
-    public String getNome    () {return    nome.trim ();}
-    public short  getTamanho () {return TAMANHO        ;}
+    @Override public short  size       () {return TAMANHO        ;}
+              public int    getId      () {return      id        ;}
+              public String getNome    () {return    nome.trim ();}
+              public short  getTamanho () {return TAMANHO        ;}
 
     // HASH
     @Override
@@ -59,7 +64,7 @@ public class ParIDNome implements aed3.RegistroHashExtensivel <ParIDNome>
     }
 
     // TO BYTE ARRAY
-    public byte [] toByteArray () throws IOException  
+    @Override public byte [] toByteArray () throws IOException  
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream (    );
         DataOutputStream      dos  = new DataOutputStream      (baos);
@@ -79,7 +84,7 @@ public class ParIDNome implements aed3.RegistroHashExtensivel <ParIDNome>
     }
 
     // FROM BYTE ARRAY
-    public void fromByteArray (byte [] ba) throws IOException  
+    @Override public void fromByteArray (byte [] ba) throws IOException  
     {
         ByteArrayInputStream bais = new ByteArrayInputStream (ba  );
         DataInputStream      dis  = new DataInputStream      (bais);
@@ -91,12 +96,17 @@ public class ParIDNome implements aed3.RegistroHashExtensivel <ParIDNome>
         this.nome = new String (nomeBytes, "ISO-8859-1").trim (); // Remove espaços extras
     }
 
+    // HASH
+    public static int hash (String nome)
+    {
+        return nome.hashCode ();
+    }
+
     // TO STRING
     public String toString ()
     {
         return "(" + nome + ";" + id + ")";
     }
-
 }
 
 //////////////////////////////////////////////////
