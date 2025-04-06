@@ -1,47 +1,53 @@
-import sistema.episodios.Episodio;
-import sistema.series.ParIDNome;
-import       sistema.series.Serie;
+import java.util.Scanner;
 
-import java.time.LocalDate; // Para o <lancamento>
+
+import sistema.series.*;
 
 public class Principal 
 {
-    public static void main (String args []) 
-    {
-        try
-        {
-            Episodio tmp = new Episodio
-            (
-                "Nome do ep", 
-                33, 
-                (short) 240, 
-                44, 
-                "Aqui vai a Sinopse de seu ep", 
-                (short) 5, 
-                LocalDate.now ()
-            );
-            
-            Serie tmp0 = new Serie 
-            (
-                "Nome da serie",
-                "Aqui vai a grandiosa sinopse de sua serie",
-                16,
-                "PUCSTREAMING",
-                LocalDate.now ()
-            );
 
-            ParIDNome tmp1 = new ParIDNome
-            (
-                -1, "Nome da serie"
-            );
-                
-            System.out.println (new Serie     (tmp0.toByteArray ()));           
-            System.out.println (new Episodio  (tmp .toByteArray ()));
-            System.out.println (new ParIDNome (tmp1.toByteArray ()));
-        }
-        catch (Exception e)
-        {
-            System.out.println ("ERRO: " + e);
-        }
+public static void main(String[] args) 
+{
+
+    Scanner console;
+
+    try {
+        console = new Scanner(System.in);
+        int opcao;
+        do {
+
+            System.out.println("\n\nAEDsIII");
+            System.out.println("-------");
+            System.out.println("> Início");
+            System.out.println("\n1 - Series");
+            System.out.println("0 - Sair");
+
+            System.out.print("\nOpção: ");
+            try {
+                opcao = Integer.valueOf(console.nextLine());
+            } catch(NumberFormatException e) {
+                opcao = -1;
+            }
+
+            switch (opcao) {
+                case 1:
+                    (new MenuSerie()).menu();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
+
+        } while (opcao != 0);
+
+
+
+    } catch(Exception e) {
+        e.printStackTrace();
     }
+
+}
+
 }

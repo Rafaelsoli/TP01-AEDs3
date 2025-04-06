@@ -21,10 +21,11 @@ public class ArquivoSerie extends aed3.Arquivo <Serie>
     // CONSTRUTORES
     public ArquivoSerie () throws Exception
     {
-        super ("series", Serie.class.getConstructor (null));
+        super("series", Serie.class.getConstructor ());
+
         indiceIndiretoNome = new HashExtensivel <>
         (
-            ParIDNome.class.getConstructor (null), 
+            ParIDNome.class.getConstructor(), 
             4,
             ".\\dados\\series\\indiceNome.d.db",
             ".\\dados\\series\\indiceNome.c.db"
