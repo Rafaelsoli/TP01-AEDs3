@@ -47,6 +47,17 @@ public class ArquivoSerie extends aed3.Arquivo <Serie>
         if(pin == null) return null;
         return read (pin.getId ());
     }
+
+    public static boolean serieExiste (int id) throws Exception
+    {
+       ArquivoSerie arqSeries = new ArquivoSerie ();
+       Serie s = arqSeries.read (id);   // na superclasse
+       if(s != null) 
+       {
+           return true;
+       }
+       return false;
+    }
     
     public boolean delete (String  nome) throws Exception 
     {

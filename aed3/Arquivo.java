@@ -6,6 +6,7 @@ import java.io.RandomAccessFile;
 import java.lang.reflect.Constructor;
 
 public class Arquivo<T extends Registro> {
+    private int ultimo_id;
     final int TAM_CABECALHO = 12;
     RandomAccessFile arquivo;
     String nomeArquivo;
@@ -36,14 +37,29 @@ public class Arquivo<T extends Registro> {
             ".\\dados\\"+na+"\\"+na+".d.db", // diretório 
             ".\\dados\\"+na+"\\"+na+".c.db"  // cestos
         );
+
+        arquivo = new RandomAccessFile(this.nomeArquivo, "rw");
+
+        if (arquivo.length() < TAM_CABECALHO) 
+        {
+            arquivo.writeInt(0);     // último ID
+            arquivo.writeLong(-1);   // lista de registros marcados para exclusão
+            ultimo_id = 0;
+        }
+        else 
+        {
+            arquivo.seek(0);
+            ultimo_id = arquivo.readInt();
+        }
     }
 
     public int create(T obj) throws Exception {
+        ultimo_id++;
+        // arquivo.seek(0);
+        // int proximoID = arquivo.readInt()+1;
         arquivo.seek(0);
-        int proximoID = arquivo.readInt()+1;
-        arquivo.seek(0);
-        arquivo.writeInt(proximoID);
-        obj.setId(proximoID);
+        arquivo.writeInt(ultimo_id);
+        obj.setId(ultimo_id);
         byte[] b = obj.toByteArray();
 
         long endereco = getDeleted(b.length);   // tenta reusar algum espaço de registro excluído
@@ -60,19 +76,21 @@ public class Arquivo<T extends Registro> {
             arquivo.write(b);              // vetor de bytes
         }
 
-        indiceDireto.create(new ParIDEndereco(proximoID, endereco));
+        indiceDireto.create(new ParIDEndereco(ultimo_id, endereco));
         
         return obj.getId();
     }
     
-    public T read(int id) throws Exception {
+    public T read (int id) throws Exception 
+    {
         T obj;
         short tam;
         byte[] b;
         byte lapide;
 
-        ParIDEndereco pid = indiceDireto.read(id);
-        if(pid!=null) {
+        ParIDEndereco pid = indiceDireto.read (id);
+        if(pid!=null) 
+        {
             arquivo.seek(pid.getEndereco());
             obj = construtor.newInstance();
             lapide = arquivo.readByte();
@@ -86,6 +104,11 @@ public class Arquivo<T extends Registro> {
             }
         }
         return null;
+    }
+
+    public int getUltimoId () 
+    {
+        return ultimo_id;
     }
 
     public boolean delete(int id) throws Exception {

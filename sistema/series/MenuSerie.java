@@ -26,13 +26,13 @@ public class MenuSerie
     }
 
     // FUNÇÕES
-    public void menu ()
+    public void menu (String servico)
     {
         int opcao = -1;
 
         while (opcao != 0)
         {
-            System.out.println ("\n\nAEDsIII");
+            System.out.println ("\n\n" + servico);
             System.out.println ("-------");
             System.out.println ("> Início > Séries");
             System.out.println ("\n1 - Buscar");
