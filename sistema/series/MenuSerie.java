@@ -7,8 +7,14 @@ package sistema.series;
 // BIBLIOTECAS
 
 import java.time.format.DateTimeFormatter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import sistema.episodios.ArquivoEpisodio;
+import sistema.episodios.Episodio;
 
 //////////////////////////////////////////////////
 // Implementação do MenuSerie em si
@@ -39,6 +45,7 @@ public class MenuSerie
             System.out.println ("2 - Incluir");
             System.out.println ("3 - Alterar");
             System.out.println ("4 - Excluir");
+            System.out.println ("5 - Povoar");
             System.out.println ("0 - Voltar");
 
             System.out.print ("\nOpção: ");
@@ -76,6 +83,10 @@ public class MenuSerie
             {
                 excluirSerie ();
             }
+            else if (opcao == 5)
+            {
+                try{povoar ();} catch (Exception e) {System.out.println ("Erro no povoar");};
+            }
             else if (opcao != 0)
             {
                 System.out.println ("Opção inválida!");
@@ -98,7 +109,7 @@ public class MenuSerie
             Serie serie = arquivoSerie.read (nome);
             if (serie != null)
             {
-                mostraSerie (serie);
+                System.out.println (serie);
             }
             else
             {
@@ -205,7 +216,7 @@ public class MenuSerie
             if (serie != null)
             {
                 System.out.println ("Série encontrada:");
-                mostraSerie (serie);
+                System.out.println (serie);
 
                 System.out.print ("\nNovo nome (enter para manter): ");
                 String novo_nome = console.nextLine ();
@@ -290,7 +301,7 @@ public class MenuSerie
             Serie serie = arquivoSerie.read (nome);
             if (serie != null)
             {
-                mostraSerie (serie);
+                System.out.println (serie);
                 System.out.print ("\nConfirma a exclusão? (S/N) ");
                 char resp = console.next ().charAt (0);
                 console.nextLine ();
@@ -316,9 +327,105 @@ public class MenuSerie
         }
     }
 
-    public void mostraSerie (Serie s)
+    public void povoar () throws Exception
     {
-        System.out.println (s);
+        System.out.print ("Atenção, povoar só deve ser executado se não houver os arquivos do banco de dados. Você os apagou de antemão (S/N)? ");
+        String resp = console.nextLine ();
+        
+        if (! (resp.equals("S") || resp.equals ("s"))) return;
+
+        System.out.println ("Povoando...");
+
+        ArquivoSerie arqSerie = new ArquivoSerie ();
+        ArquivoEpisodio arqEp = new ArquivoEpisodio ();
+    
+        arqSerie.create 
+        (
+            new Serie (
+                "Neon Genesis Evangelion", 
+                "Evangelion se passa quinze anos após um cataclismo mundial, particularmente na futurística cidade fortificada de Tokyo-3. O protagonista é Shinji, um adolescente que foi recrutado por seu pai, Gendo, para uma misteriosa organização chamada Nerv para pilotar em combate uma biomáquina gigante conhecida como \"Evangelion\" contra seres chamados \"Anjos\".", 
+                14,
+                "Disney+, Prime Video, Netflix", 
+                LocalDate.of (1995, 10, 4)
+            )
+        );
+        arqEp.create (
+            new Episodio (
+                "Angel Attack", 
+                1, 
+                (short) 25, 
+                arqSerie.getUltimoId (), 
+                "Shinji Ikari é chamado para pilotar o EVA pela primeira vez, enfrentando o terceiro anjo.", 
+                (short) 1, 
+                LocalDate.of (1995, 10, 4)
+            )
+        );
+    
+        arqSerie.create 
+        (
+            new Serie (
+                "Breaking Bad", 
+                "Um professor de química do ensino médio diagnosticado com câncer terminal começa a fabricar e vender metanfetamina para garantir o futuro de sua família.", 
+                16, 
+                "Netflix", 
+                LocalDate.of (2008, 1, 20)
+            )
+        );
+        arqEp.create (
+            new Episodio (
+                "Pilot", 
+                1, 
+                (short) 58, 
+                arqSerie.getUltimoId (), 
+                "Walter White, um professor de química, começa a cozinhar metanfetamina com seu ex-aluno Jesse Pinkman.", 
+                (short) 1, 
+                LocalDate.of (2008, 1, 20)
+            )
+        );
+    
+        arqSerie.create 
+        (
+            new Serie (
+                "Stranger Things", 
+                "Quando um garoto desaparece, sua mãe, um chefe de polícia e seus amigos enfrentam forças sobrenaturais para trazê-lo de volta.", 
+                18, 
+                "Netflix", 
+                LocalDate.of (2016, 7, 15)
+            )
+        );
+        arqEp.create (
+            new Episodio (
+                "The Vanishing of Will Byers", 
+                1, 
+                (short) 47, 
+                arqSerie.getUltimoId (), 
+                "Will Byers desaparece misteriosamente, dando início a uma série de eventos paranormais em Hawkins.", 
+                (short) 1, 
+                LocalDate.of (2016, 7, 15)
+            )
+        );
+    
+        arqSerie.create 
+        (
+            new Serie (
+                "The Mandalorian", 
+                "Um caçador de recompensas solitário percorre a galáxia nos confins da Nova República, enfrentando inimigos e protegendo uma misteriosa criança.", 
+                8, 
+                "Disney+", 
+                LocalDate.of (2019, 11, 12)
+            )
+        );
+        arqEp.create (
+            new Episodio (
+                "Chapter 1: The Mandalorian", 
+                1, 
+                (short) 39, 
+                arqSerie.getUltimoId (), 
+                "O Mandaloriano aceita uma missão peculiar que o leva a um encontro inesperado.", 
+                (short) 1, 
+                LocalDate.of (2019, 11, 12)
+            )
+        );
     }
 }
 

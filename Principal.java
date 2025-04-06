@@ -16,12 +16,12 @@ public static void main (String [] args)
         int opcao = -1;
         do 
         {
-            System.out.println("\n\n" + servico);
-            System.out.println("-------");
-            System.out.println("> Início");
-            System.out.println("\n1 - Séries");
-            System.out.println(  "2 - Episódios");
-            System.out.println(  "0 - Sair");
+            System.out.println ("\n\n" + servico);
+            System.out.println ("-------");
+            System.out.println ("> Início");
+            System.out.println ("\n1 - Séries");
+            System.out.println (  "2 - Episódios");
+            System.out.println (  "0 - Sair");
 
             System.out.print ("\nOpção: ");
             try
@@ -33,7 +33,7 @@ public static void main (String [] args)
                 }
                 else 
                 {
-                    System.out.print("\n\nPrograma finalizado forçadamente.\n\n");
+                    System.out.print ("\n\nPrograma finalizado forçadamente.\n\n");
                     System.exit (0);
                 }
             }
@@ -49,14 +49,14 @@ public static void main (String [] args)
                 break;
 
                 case 1:
-                    (new MenuSerie()).menu (servico);
+                    (new MenuSerie ()).menu (servico);
                 break;
                 
                 case 0:
                 break;
 
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println ("Opção inválida!");
                 break;
             }
 

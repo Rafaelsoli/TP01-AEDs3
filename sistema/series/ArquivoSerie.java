@@ -8,6 +8,7 @@ package sistema.series;
 
 import aed3.HashExtensivel; // Para HashExtensivel
 // import aed3.Arquivo; // Para arquivo
+import sistema.episodios.ArquivoEpisodio;
 
 //////////////////////////////////////////////////
 // Implementação do ArquivoSerie em si
@@ -70,11 +71,15 @@ public class ArquivoSerie extends aed3.Arquivo <Serie>
 
     @Override public boolean delete (int id) throws Exception 
     {
+        ArquivoEpisodio arqEpisodio = new ArquivoEpisodio ();
+
         Serie c = super.read (id);
+
         if (c != null) 
         {
-            if (super.delete(id))
-                return indiceIndiretoNome.delete (ParIDNome.hash (c.getNome ()));
+            arqEpisodio.deleteEpisodioSerie (id);
+
+            if (super.delete (id)) return indiceIndiretoNome.delete (ParIDNome.hash (c.getNome ()));
         }
         return false;
     }
