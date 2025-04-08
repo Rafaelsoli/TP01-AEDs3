@@ -1,13 +1,24 @@
-package aed3;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+//////////////////////////////////////////////////
+// PACOTE
 
-public class ParIDEndereco implements aed3.RegistroHashExtensivel<ParIDEndereco> {
-    
-    private int id;   // chave
+package aeds3;
+
+//////////////////////////////////////////////////
+// BIBLIOTECAS DO SISTEMA
+
+import java.io.ByteArrayOutputStream;
+import  java.io.ByteArrayInputStream;
+import      java.io.DataOutputStream;
+import       java.io.DataInputStream;
+import           java.io.IOException;
+
+//////////////////////////////////////////////////
+// CLASSE SÉRIE EM SI
+
+public class ParIDEndereco implements RegistroHashExtensivel 
+{
+    // VARIÁVEIS
+    private int id;           // chave
     private long endereco;    // valor
     private final short TAMANHO = 12;  // tamanho em bytes
 

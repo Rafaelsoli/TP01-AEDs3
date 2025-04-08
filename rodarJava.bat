@@ -1,2 +1,3 @@
 @echo off
-java Principal.java
+javac Principal.java
+java Principal

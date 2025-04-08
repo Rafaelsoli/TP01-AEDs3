@@ -1,74 +1,85 @@
+///////////////////O-Pear-ation///////////////////
+// Bibliotecas do sistema
+
 import java.util.Scanner;
 
-import sistema.episodios.MenuEpisodio;
-import sistema.series.*;
+//////////////////////////////////////////////////
+// Bibliotecas próprias
+
+import episodios.*;
+import series.*;
+import aeds3.*;
+
+//////////////////////////////////////////////////
+// Classe Principal
 
 public class Principal 
 {
 
-public static void main (String [] args) 
-{
-    String servico = "PUCFLIX";
-    Scanner console;
-
-    try {
-        console = new Scanner (System.in);
-        int opcao = -1;
-        do 
+    public static void main (String args []) 
+    {
+        // VARIÁVEIS
+        String servico  = "PUCFLIX";
+        Scanner console =      null;
+        
+        try 
         {
-            System.out.println ("\n\n" + servico);
-            System.out.println ("-------");
-            System.out.println ("> Início");
-            System.out.println ("\n1 - Séries");
-            System.out.println (  "2 - Episódios");
-            System.out.println (  "0 - Sair");
 
-            System.out.print ("\nOpção: ");
-            try
-            {
-                if (console.hasNextLine ())
-                {
-                    String a = console.nextLine ();
-                    opcao = Integer.valueOf (a);
-                }
-                else 
-                {
-                    System.out.print ("\n\nPrograma finalizado forçadamente.\n\n");
-                    System.exit (0);
-                }
-            }
-            catch (NumberFormatException e)
-            {
-                opcao = -1;
-            }
+            console = new Scanner (System.in);
+            int opcao;
+            do {
 
-            switch (opcao) 
-            {
-                case 2:
-                    (new MenuEpisodio ()).menu (servico);
-                break;
-
-                case 1:
-                    (new MenuSerie ()).menu (servico);
-                break;
+                System.out.println (servico);
+                System.out.println ( "-----------");
+                System.out.println ("> Início");
+                System.out.println ("1 - Series");
+                System.out.println ("2 - Episodios");
+                System.out.println ("3 - Povoar");
+                System.out.println ("0 - Sair");
                 
-                case 0:
-                break;
+                System.out.print("\nOpção: ");
+                try 
+                {
+                    opcao = Integer.valueOf(console.nextLine());
+                } 
+                catch(NumberFormatException e) 
+                {
+                    opcao = -1;
+                }
 
-                default:
-                    System.out.println ("Opção inválida!");
-                break;
-            }
+                switch (opcao) 
+                {
+                    case 1:
+                        (new MenuSeries ()).menu (servico);
+                    break;
+
+                    case 2:
+                        (new MenuEpisodios ()).menu (servico);
+                    break;
+
+                    case 3:
+                        (new MenuSeries ()).povoar ();
+                        (new MenuEpisodios ()).povoar ();
+                    break;
+
+                    case 0:
+                    break;
+
+                    default:
+                        System.out.println ("Opção inválida!");
+                    break;
+                }
+
+            } 
+            while (opcao != 0);
 
         } 
-        while (opcao != 0);
-
-    } 
-    catch(Exception e) 
-    {
-        e.printStackTrace ();
+        catch(Exception e) 
+        {
+            e.printStackTrace ();
+        }
     }
 
 }
 
-}
+//////////////////////////////////////////////////z
